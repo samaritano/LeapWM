@@ -1,10 +1,23 @@
-################################################################################
-# Copyright (C) 2012-2013 Leap Motion, Inc. All rights reserved.               #
-# Leap Motion proprietary and confidential. Not for distribution.              #
-# Use subject to the terms of the Leap Motion SDK Agreement available at       #
-# https://developer.leapmotion.com/sdk_agreement, or another agreement         #
-# between Leap Motion and you, your company or other organization.             #
-################################################################################
+# LeapWM - Spread and Unspread windows
+#
+# Author: Paolo Aldovini
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 
 import Leap, sys
 from evdev import UInput, ecodes as e
@@ -39,15 +52,15 @@ class TestListener(Leap.Listener):
                 if hand.id == self.hand_id and not self.spread_win and len(fingers) >= 4 and (frame.timestamp - self.curtime) <= 1000000:
                     #print "(Spread) Old timestamp is %d, current is %d (%d)" % (self.curtime, frame.timestamp, (frame.timestamp - self.curtime))
                     self.spread_windows()
-                    print "Spread windows"
+                    #print "Spread windows"
                     self.spread_win = True
                     self.curtime = frame.timestamp
-                    print "Hand open timestamp is %d" % self.curtime
+                    #print "Hand open timestamp is %d" % self.curtime
             else:
                 if hand.id == self.hand_id and self.spread_win and (frame.timestamp - self.curtime) <= 1000000:
                     #print "(Unspread) Old timestamp is %d, current is %d (%d)" % (self.curtime, frame.timestamp, (frame.timestamp - self.curtime))
                     self.spread_windows()
-                    print "Unspread windows"
+                    #print "Unspread windows"
                     self.spread_win = False
                 else:
                     self.hand_id = hand.id
